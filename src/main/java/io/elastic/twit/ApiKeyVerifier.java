@@ -1,4 +1,4 @@
-package io.elastic.petstore;
+package io.elastic.twit;
 
 
 import io.elastic.api.CredentialsVerifier;
@@ -21,8 +21,8 @@ public class ApiKeyVerifier implements CredentialsVerifier {
     public void verify(final JsonObject configuration) throws InvalidCredentialsException {
         logger.info("About to verify the provided API key by retrieving the user");
         try {
-            final JsonObject user = HttpClientUtils.getSingle("/user/me", configuration);
-            logger.info("User {} successfully retrieved. Credentials are valid", user.getString("username"));
+            final String userName = TwitterUtils.getScreenName(configuration);
+            logger.info("User {} successfully retrieved. Credentials are valid", userName);
         } catch (Exception e) {
             throw new InvalidCredentialsException("Failed to verify credentials", e);
         }

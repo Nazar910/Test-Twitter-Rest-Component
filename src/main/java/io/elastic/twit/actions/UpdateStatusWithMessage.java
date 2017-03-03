@@ -1,29 +1,27 @@
-package io.elastic.petstore.actions;
+package io.elastic.twit.actions;
 
 import io.elastic.api.ExecutionParameters;
 import io.elastic.api.Message;
 import io.elastic.api.Module;
-import io.elastic.petstore.HttpClientUtils;
+import io.elastic.twit.TwitterUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import twitter4j.Status;
 
+import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonString;
 
 /**
- * Action to create a pet.
+ * Created by pyvov on 03.03.2017.
  */
-public class CreatePet implements Module {
-    private static final Logger logger = LoggerFactory.getLogger(CreatePet.class);
+public class UpdateStatusWithMessage implements Module {
+    private static final Logger logger = LoggerFactory.getLogger(UpdateStatusWithMessage.class);
 
-    /**
-     * Executes the actions's logic by sending a request to the Petstore API and emitting response to the platform.
-     *
-     * @param parameters execution parameters
-     */
     @Override
     public void execute(final ExecutionParameters parameters) {
-        logger.info("About to create new pet");
+        logger.info("About to update status");
+
         // incoming message
         final Message message = parameters.getMessage();
 
@@ -39,22 +37,19 @@ public class CreatePet implements Module {
             throw new IllegalStateException("Name is required");
         }
 
-        // access the value of the mapped value into name field of the in-metadata
-        final JsonString status = body.getJsonString("status");
-        if (status == null) {
-            throw new IllegalStateException("Status is required");
-        }
+        String text = TwitterUtils.updateStatus(name.getString(), configuration).getText();
 
-        final JsonObject pet = HttpClientUtils.post("/pet", configuration, body);
+        final JsonObject statusMessage = Json.createObjectBuilder().add("name", text).build();
 
-        logger.info("Pet successfully created");
+        logger.info("Status successfully updated");
 
         final Message data
-                = new Message.Builder().body(pet).build();
+                = new Message.Builder().body(statusMessage).build();
 
         logger.info("Emitting data");
 
         // emitting the message to the platform
         parameters.getEventEmitter().emitData(data);
+
     }
 }
