@@ -46,15 +46,15 @@ public class TwitterUtils {
             configTwitter(configuration);
             twitter.destroyStatus(id);
         } catch (TwitterException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     private static void configTwitter(JsonObject configuration) {
         if (config != null && config.equals(configuration)) return;
         twitter = new TwitterFactory().getInstance();
-        String consumerKey = configuration.getString("CONSUMER_KEY");
-        String consumerSecret = configuration.getString("CONSUMER_SECRET");
+        String consumerKey = System.getenv("CONSUMER_KEY");
+        String consumerSecret = System.getenv("CONSUMER_SECRET");
 //        String accessTokenStr = configuration.getString("accessToken");
 //        String accessTokenSecret = configuration.getString("accessTokenSecret");
 //        AccessToken accessToken = new AccessToken(accessTokenStr, accessTokenSecret);
