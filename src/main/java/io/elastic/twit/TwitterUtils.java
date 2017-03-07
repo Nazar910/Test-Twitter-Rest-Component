@@ -55,16 +55,19 @@ public class TwitterUtils {
         twitter = new TwitterFactory().getInstance();
         String consumerKey = System.getenv("CONSUMER_KEY");
         String consumerSecret = System.getenv("CONSUMER_SECRET");
+        String accessToken = configuration.getString("access_token");
+        String accessTokenSecret = configuration.getString("access_token_secret");
 //        String accessTokenStr = configuration.getString("accessToken");
 //        String accessTokenSecret = configuration.getString("accessTokenSecret");
 //        AccessToken accessToken = new AccessToken(accessTokenStr, accessTokenSecret);
         twitter.setOAuthConsumer(consumerKey, consumerSecret);
-        try {
-            RequestToken requestToken = twitter.getOAuthRequestToken();
-            twitter.getOAuthAccessToken(requestToken);
-        } catch (TwitterException e) {
-            throw new RuntimeException(e);
-        }
+        twitter.setOAuthAccessToken(new AccessToken(accessToken, accessTokenSecret));
+//        try {
+//            RequestToken requestToken = twitter.getOAuthRequestToken();
+//            twitter.getOAuthAccessToken(requestToken);
+//        } catch (TwitterException e) {
+//            throw new RuntimeException(e);
+//        }
 //        twitter.setOAuthAccessToken(accessToken);
         config = configuration;
     }
