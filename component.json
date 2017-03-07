@@ -2,6 +2,16 @@
   "title": "Twitter Rest Component (Java)",
   "description": "my test component for Twitter Rest",
   "docsUrl": "https://github.com/elasticio/petstore-component-java",
+  "envVars": {
+    "CONSUMER_KEY": {
+      "required": true,
+      "description": "Your Twitter OAuth consumer key"
+    },
+    "CONSUMER_SECRET": {
+      "required": true,
+      "description": "Your Twitter OAuth consumer secret"
+    }
+  },
   "credentials" : {
     "fields":{
       "oauth":{
@@ -11,8 +21,8 @@
       }
     },
     "oauth1":{
-      "consumer_key":"02iNYhYFRDVNRQVVxLCaqnQhB",
-      "consumer_secret":"qHtfrTBkCImKOuXqV7fUZcd6uPZouREaNVKj2HMVuGyr3XrUrD",
+      "consumer_key":"{{CONSUMER_KEY}}",
+      "consumer_secret":"{{CONSUMER_SECRET}}",
       "request_token_uri":"https://api.twitter.com/oauth/request_token",
       "auth_uri":"https://api.twitter.com/oauth/authorize",
       "access_token_uri":"https://api.twitter.com/oauth/access_token"
