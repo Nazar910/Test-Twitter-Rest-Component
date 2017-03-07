@@ -55,6 +55,7 @@ public class TwitterUtils {
         twitter = new TwitterFactory().getInstance();
         String consumerKey = System.getenv("CONSUMER_KEY");
         String consumerSecret = System.getenv("CONSUMER_SECRET");
+        logger.info(configuration.toString());
         String accessToken = configuration.getString("access_token");
         String accessTokenSecret = configuration.getString("access_token_secret");
 //        String accessTokenStr = configuration.getString("accessToken");
