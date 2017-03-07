@@ -56,8 +56,9 @@ public class TwitterUtils {
         String consumerKey = System.getenv("CONSUMER_KEY");
         String consumerSecret = System.getenv("CONSUMER_SECRET");
         logger.info(configuration.toString());
-        String accessToken = configuration.getString("access_token");
-        String accessTokenSecret = configuration.getString("access_token_secret");
+        JsonObject oauth = configuration.getJsonObject("oauth");
+        String accessToken = oauth.getString("oauth_token");
+        String accessTokenSecret = oauth.getString("oauth_token_secret");
 //        String accessTokenStr = configuration.getString("accessToken");
 //        String accessTokenSecret = configuration.getString("accessTokenSecret");
 //        AccessToken accessToken = new AccessToken(accessTokenStr, accessTokenSecret);
