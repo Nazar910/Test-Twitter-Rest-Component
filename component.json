@@ -11,8 +11,8 @@
       }
     },
     "oauth1":{
-      "consumer_key":"{{CONSUMER_KEY}}",
-      "consumer_secret":"{{CONSUMER_SECRET}}",
+      "consumer_key":"02iNYhYFRDVNRQVVxLCaqnQhB",
+      "consumer_secret":"qHtfrTBkCImKOuXqV7fUZcd6uPZouREaNVKj2HMVuGyr3XrUrD",
       "request_token_uri":"https://api.twitter.com/oauth/request_token",
       "auth_uri":"https://api.twitter.com/oauth/authorize",
       "access_token_uri":"https://api.twitter.com/oauth/access_token"
