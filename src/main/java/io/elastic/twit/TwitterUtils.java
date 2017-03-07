@@ -7,6 +7,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 
 import javax.json.JsonObject;
 
@@ -52,13 +53,19 @@ public class TwitterUtils {
     private static void configTwitter(JsonObject configuration) {
         if (config != null && config.equals(configuration)) return;
         twitter = new TwitterFactory().getInstance();
-        String consumerKey = configuration.getString("consumerKey");
-        String consumerSecret = configuration.getString("consumerSecret");
-        String accessTokenStr = configuration.getString("accessToken");
-        String accessTokenSecret = configuration.getString("accessTokenSecret");
-        AccessToken accessToken = new AccessToken(accessTokenStr, accessTokenSecret);
+        String consumerKey = configuration.getString("CONSUMER_KEY");
+        String consumerSecret = configuration.getString("CONSUMER_SECRET");
+//        String accessTokenStr = configuration.getString("accessToken");
+//        String accessTokenSecret = configuration.getString("accessTokenSecret");
+//        AccessToken accessToken = new AccessToken(accessTokenStr, accessTokenSecret);
         twitter.setOAuthConsumer(consumerKey, consumerSecret);
-        twitter.setOAuthAccessToken(accessToken);
+        try {
+            RequestToken requestToken = twitter.getOAuthRequestToken();
+            twitter.getOAuthAccessToken(requestToken);
+        } catch (TwitterException e) {
+            throw new RuntimeException(e);
+        }
+//        twitter.setOAuthAccessToken(accessToken);
         config = configuration;
     }
 }
