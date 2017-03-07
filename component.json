@@ -2,30 +2,21 @@
   "title": "Twitter Rest Component (Java)",
   "description": "my test component for Twitter Rest",
   "docsUrl": "https://github.com/elasticio/petstore-component-java",
-  "credentials": {
-    "fields": {
-      "consumerKey": {
-        "label": "Consumer key",
-        "required": true,
-        "viewClass": "TextFieldWithNoteView"
-      },
-      "consumerSecret": {
-        "label": "Consumer secret",
-        "required": true,
-        "viewClass": "TextFieldWithNoteView"
-      },
-      "accessToken": {
-        "label": "Access token",
-        "required": true,
-        "viewClass": "TextFieldWithNoteView"
-      },
-      "accessTokenSecret": {
-        "label": "Access token secret",
-        "required": true,
-        "viewClass": "TextFieldWithNoteView"
+  "credentials" : {
+    "fields":{
+      "oauth":{
+        "viewClass":"OAuthFieldView",
+        "label":"Twitter Account",
+        "required" : true
       }
     },
-    "verifier": "io.elastic.twit.ApiKeyVerifier"
+    "oauth1":{
+      "consumer_key":"{{CONSUMER_KEY}}",
+      "consumer_secret":"{{CONSUMER_SECRET}}",
+      "request_token_uri":"https://api.twitter.com/oauth/request_token",
+      "auth_uri":"https://api.twitter.com/oauth/authorize",
+      "access_token_uri":"https://api.twitter.com/oauth/access_token"
+    }
   },
   "actions": {
     "createStatus": {
